@@ -49,7 +49,7 @@ function setup() {
   x = width / 2;
   y = height / 2;
   xoff = 0.0;
-  myCanvas = createCanvas(910, 1000);
+  myCanvas = createCanvas(1000, 1000);
   myCanvas.class("p5canvas");
   video = createCapture(VIDEO);
   hat = new Hat();
@@ -206,8 +206,8 @@ let canvas_confetti = document.createElement("canvas");
 canvas_confetti.className = "confettiCanvas";
 let dddiv = document.querySelector("div");
 dddiv.appendChild(canvas_confetti);
-canvas_confetti.height = 800;
-canvas_confetti.width = 650;
+canvas_confetti.height = 1000;
+canvas_confetti.width = 1000;
 
 let myConfetti = confetti.create(canvas_confetti, {
   resize: true,
