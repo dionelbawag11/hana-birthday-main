@@ -52,7 +52,6 @@ function setup() {
   myCanvas = createCanvas(640, 480);
   myCanvas.class("p5canvas");
   video = createCapture(VIDEO);
-  video.size(423, 932);
   hat = new Hat();
   let string = "Happy Birthday Hana";
   for (let i = 0; i < string.length; i++) {
