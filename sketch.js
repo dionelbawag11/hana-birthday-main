@@ -46,7 +46,7 @@ function setup() {
   textAlign(CENTER, CENTER);
 
   // Adjust canvas size based on the screen's dimensions
-  let aspectRatio = 480 / 880; // Assume 4:3 aspect ratio for video
+  let aspectRatio = 480 / 780; // Assume 4:3 aspect ratio for video
   let canvasWidth = windowWidth; // Use full screen width
   let canvasHeight = canvasWidth / aspectRatio;
 
