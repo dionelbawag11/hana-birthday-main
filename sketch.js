@@ -52,12 +52,12 @@ function setup() {
   x = width / 2;
   y = height / 2;
   xoff = 0.0;
-  myCanvas = createCanvas(640, 480);
+  myCanvas = createCanvas(840, 680);
   myCanvas.class("p5canvas");
   video = createCapture(VIDEO);
   video.size(width, height);
   hat = new Hat();
-  let string = "Happy Birthday";
+  let string = "Happy Birthday Hana!";
   for (let i = 0; i < string.length; i++) {
     happyBirthdayAnima.push(new textAnimation(string[i], width * 0.5, height / 2));
   }
@@ -90,8 +90,9 @@ function draw() {
   cakeX = noise(xoff) * width;
   cakeY = noise(xoff + 1.4) * width;
   if (bite < 7 && !boomed) {
-    image(cakesImg[bite], cakeX, cakeY, 250, 250 * 419 / 525);
-
+    const cakeWidth = 150; // Smaller width
+    const cakeHeight = cakeWidth * 419 / 525; // Maintain aspect ratio
+    image(cakesImg[bite], cakeX, cakeY, cakeWidth, cakeHeight);
     if (abite) {
       console.log(bite);
       eatSound[bite - 1].setVolume(1);
