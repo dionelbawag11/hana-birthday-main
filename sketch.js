@@ -17,7 +17,7 @@ let hatControl = {
 
 let myCanvas;
 //confettie property
-var duration = 8 * 1000;
+var duration = 8 * 10000;
 var end = Date.now() + duration;
 
 let song, bgm;
@@ -153,7 +153,7 @@ function draw() {
         spread: 55,
         origin: {
           x: 0,
-          y: 0.8,
+          y: 0.4,
         },
       });
       myConfetti({
@@ -162,7 +162,7 @@ function draw() {
         spread: 55,
         origin: {
           x: 1,
-          y: 0.8
+          y: 0.4
         },
       });
     }
@@ -231,13 +231,17 @@ canvas_confetti.height = window.innerHeight;
 let myConfetti = confetti.create(canvas_confetti, {
   resize: true, // Dynamically resize with the window
   useWorker: true, // Offload rendering to a worker
+  origin: {
+    x: 0.5,  // This keeps the confetti horizontally centered
+    y: 2,    // Set to 0 to start the confetti at the top of the screen
+  },
 });
 
 
 function textAnimation(string, x = width * 0.7, y = height) {
   this.x = x;
   this.y = y;
-  this.size = 10;
+  this.size = 50;
   this.display = function () {
     textSize(this.size);
     stroke(0);
@@ -248,7 +252,7 @@ function textAnimation(string, x = width * 0.7, y = height) {
   }
 }
 
-function Hat(x = 0.5 * width, y = -10) {
+function Hat(x = 0.5 * width, y = -50) {
   this.location = createVector(x, y);
   this.wear = false;
   this.display = function (size, start) {
