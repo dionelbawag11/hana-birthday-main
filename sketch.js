@@ -219,7 +219,7 @@ function playEatSoundEffect(biting = false) {
 let canvas_confetti = document.createElement('canvas');
 canvas_confetti.className = "confettiCanvas";
 canvas_confetti.style.position = "absolute"; // Ensure it overlays the main canvas
-canvas_confetti.style.top = "0";
+canvas_confetti.style.top = "-100";
 canvas_confetti.style.left = "0";
 canvas_confetti.style.pointerEvents = "none"; // Allow interactions to pass through
 document.body.appendChild(canvas_confetti);
@@ -228,14 +228,13 @@ document.body.appendChild(canvas_confetti);
 canvas_confetti.width = window.innerWidth;
 canvas_confetti.height = window.innerHeight;
 
-// Initialize the confetti instance
 let myConfetti = confetti.create(canvas_confetti, {
   resize: true, // Dynamically resize with the window
   useWorker: true, // Offload rendering to a worker
 });
 
 
-function textAnimation(string, x = width * 0.7, y = height / 2) {
+function textAnimation(string, x = width * 0.7, y = height) {
   this.x = x;
   this.y = y;
   this.size = 10;
