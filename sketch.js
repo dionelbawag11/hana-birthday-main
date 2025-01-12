@@ -52,7 +52,7 @@ function setup() {
   x = width / 2;
   y = height / 2;
   xoff = 0.0;
-  myCanvas = createCanvas(1240, 880);
+  myCanvas = createCanvas(940, 880);
   myCanvas.class("p5canvas");
   video = createCapture(VIDEO);
   video.size(width, height);
