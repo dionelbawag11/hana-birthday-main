@@ -52,7 +52,7 @@ function setup() {
   x = width / 2;
   y = height / 2;
   xoff = 0.0;
-  myCanvas = createCanvas(840, 680);
+  myCanvas = createCanvas(940, 880);
   myCanvas.class("p5canvas");
   video = createCapture(VIDEO);
   video.size(width, height);
@@ -77,6 +77,7 @@ function modelReady() {
 }
 
 function draw() {
+  
   push();
   translate(width / 2, height / 2);
   scale(-1, 1)
@@ -90,7 +91,7 @@ function draw() {
   cakeX = noise(xoff) * width;
   cakeY = noise(xoff + 1.4) * width;
   if (bite < 7 && !boomed) {
-    const cakeWidth = 150; // Smaller width
+    const cakeWidth = 250; // Smaller width
     const cakeHeight = cakeWidth * 419 / 525; // Maintain aspect ratio
     image(cakesImg[bite], cakeX, cakeY, cakeWidth, cakeHeight);
     if (abite) {
@@ -199,7 +200,7 @@ function checkBite() {
   }
 
   mouseState = d > 20 ? 1 : 0;
-  let distMC = dist(mouthX, mouthY, cakeX, cakeY);
+  let distMC = dist(mouthX-100, mouthY + 200, cakeX, cakeY);
   if (mouseState < preMouseState && distMC < 100) {
     bite++;
     biting = true;
@@ -263,8 +264,10 @@ function Hat(x = 0.5 * width, y = -10) {
         this.wear = true;
       }
       push();
-      translate(this.wear ? hatX : this.location.x, this.wear ? hatY - 100 * size : this.location.y - 100 * size);
-      scale(size);
+      translate(
+        this.wear ? hatX - 100 : this.location.x - 100, // Move the hat 50 pixels to the left
+        this.wear ? hatY - 100 * size : this.location.y - 100 * size
+      ); scale(size);
       image(hatImg, 0, 0, 200, 200);
       pop();
     }
