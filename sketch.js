@@ -52,12 +52,12 @@ function setup() {
   x = width / 2;
   y = height / 2;
   xoff = 0.0;
-  myCanvas = createCanvas(1280, 960);  // Increased from 940x880
+  myCanvas = createCanvas(1920, 1080);
   myCanvas.class("p5canvas");
   video = createCapture(VIDEO);
   video.size(width, height);
   hat = new Hat();
-  let string = "Happy Birthday!";
+  let string = "Happy Birthday AMB!";
   for (let i = 0; i < string.length; i++) {
     happyBirthdayAnima.push(new textAnimation(string[i], width * 0.5, height / 2));
   }
@@ -200,8 +200,8 @@ function checkBite() {
   }
 
   mouseState = d > 20 ? 1 : 0;
-  let distMC = dist(mouthX-100, mouthY + 200, cakeX, cakeY);
-  if (mouseState < preMouseState && distMC < 100) {
+  let distMC = dist(mouthX, mouthY, cakeX, cakeY);
+  if (mouseState < preMouseState && distMC < 150) {
     bite++;
     biting = true;
   };
