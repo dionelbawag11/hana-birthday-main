@@ -13,11 +13,11 @@ let hatSize;
 
 let hatControl = {
   start: 0,
-}
+};
 
 let myCanvas;
 //confettie property
-var duration = 8 * 10000;
+var duration = 8 * 1000;
 var end = Date.now() + duration;
 
 let song, bgm;
@@ -28,9 +28,9 @@ function preload() {
   for (let i = 0; i < 7; i++) {
     cakesImg[i] = loadImage(`img/cake0${i}.png`);
   }
-  hatImg = loadImage('img/hat.png');
-  song = loadSound('./happyBirthday.wav');
-  bgm = loadSound('./happyStudent.mp3', () => {
+  hatImg = loadImage("img/hat.png");
+  song = loadSound("./happyBirthday.wav");
+  bgm = loadSound("./happyStudent.mp3", () => {
     bgm.stop();
     bgm.setVolume(0.2);
     bgm.play();
@@ -41,35 +41,32 @@ function preload() {
       //  console.log(eatSound.length);
     });
   });
-
 }
 
-
 function setup() {
-
   imageMode(CENTER);
   textAlign(CENTER, CENTER);
   x = width / 2;
   y = height / 2;
   xoff = 0.0;
-  myCanvas = createCanvas(1920, 1080);
+  myCanvas = createCanvas(windowWidth, windowHeight);
   myCanvas.class("p5canvas");
   video = createCapture(VIDEO);
   video.size(width, height);
   hat = new Hat();
-  let string = "Happy Birthday AMB!";
+  let string = "Happy Birthday!";
   for (let i = 0; i < string.length; i++) {
-    happyBirthdayAnima.push(new textAnimation(string[i], width * 0.5, height / 2));
+    happyBirthdayAnima.push(
+      new textAnimation(string[i], width * 0.5, height / 2)
+    );
   }
-
 
   //ml5
   facemesh = ml5.facemesh(video, modelReady);
-  facemesh.on("predict", results => {
+  facemesh.on("predict", (results) => {
     predictions = results;
   });
   video.hide();
-
 }
 
 function modelReady() {
@@ -77,23 +74,20 @@ function modelReady() {
 }
 
 function draw() {
-
   push();
   translate(width / 2, height / 2);
-  scale(-1, 1)
+  scale(-1, 1);
   image(video, 0, 0, width, height);
   pop(0);
 
   let abite = checkBite();
 
-
   xoff = xoff + 0.005;
   cakeX = noise(xoff) * width;
   cakeY = noise(xoff + 1.4) * width;
   if (bite < 7 && !boomed) {
-    const cakeWidth = 250; // Smaller width
-    const cakeHeight = cakeWidth * 419 / 525; // Maintain aspect ratio
-    image(cakesImg[bite], cakeX, cakeY, cakeWidth, cakeHeight);
+    image(cakesImg[bite], cakeX, cakeY, 250, (250 * 419) / 525);
+
     if (abite) {
       console.log(bite);
       eatSound[bite - 1].setVolume(1);
@@ -106,7 +100,7 @@ function draw() {
 
   if (eaten) {
     let boomX, boomY;
-    happyBirthdayAnima.forEach(item => item.display());
+    happyBirthdayAnima.forEach((item) => item.display());
     hat.display(hatSize, hatControl.start);
 
     if (!boomed) {
@@ -120,31 +114,30 @@ function draw() {
         targets: happyBirthdayAnima,
         size: 60,
         x: anime.stagger(40, {
-          start: 60
+          start: 60,
         }),
         round: 1,
-        easing: 'spring(0.5, 10, 1.5, 10)',
+        easing: "spring(0.5, 10, 1.5, 10)",
         duration: 3000,
       });
       anime({
         targets: happyBirthdayAnima,
-        y: 0.6 * width,
+        y: 0.6 * height,
         round: 1,
-        easing: 'easeInOutElastic(1, .6)',
+        easing: "easeInOutElastic(1, .6)",
         duration: 3000,
         delay: anime.stagger(100, {
-          from: 'center',
-          start: 3000
-        })
+          from: "center",
+          start: 3000,
+        }),
       });
       anime({
         targets: hatControl,
         start: 1,
-        easing: 'linear(1, .6)',
+        easing: "linear(1, .6)",
         duration: 10,
-        delay: 6000
+        delay: 6000,
       });
-
     }
     if (Date.now() < end) {
       myConfetti({
@@ -153,7 +146,7 @@ function draw() {
         spread: 55,
         origin: {
           x: 0,
-          y: 0.4,
+          y: 0.8,
         },
       });
       myConfetti({
@@ -162,15 +155,12 @@ function draw() {
         spread: 55,
         origin: {
           x: 1,
-          y: 0.4
+          y: 0.8,
         },
       });
     }
   }
-
-
 }
-
 
 let mouseState = 0;
 let preMouseState = 0;
@@ -190,7 +180,6 @@ function checkBite() {
     mouthY = lowerLipY;
     d = sqrt(sq(upperLipX - lowerLipX) + sq(upperLipY - lowerLipY));
 
-
     hatX = width - keypoints[10][0];
     hatY = keypoints[10][1];
 
@@ -200,11 +189,11 @@ function checkBite() {
   }
 
   mouseState = d > 20 ? 1 : 0;
-  let distMC = dist(mouthX-300, mouthY+300, cakeX, cakeY);
+  let distMC = dist(mouthX, mouthY, cakeX, cakeY);
   if (mouseState < preMouseState && distMC < 150) {
     bite++;
     biting = true;
-  };
+  }
   preMouseState = mouseState;
   console.log(biting);
   return biting;
@@ -214,45 +203,50 @@ function playEatSoundEffect(biting = false) {
   if (biting) eatSound[bite].play();
 }
 
-
-// Create a confetti canvas
-let canvas_confetti = document.createElement('canvas');
+// Create a confetti canvas that covers the entire screen
+let canvas_confetti = document.createElement("canvas");
 canvas_confetti.className = "confettiCanvas";
-canvas_confetti.style.position = "absolute"; // Ensure it overlays the main canvas
-canvas_confetti.style.top = "-100";
+canvas_confetti.style.position = "fixed";
+canvas_confetti.style.top = "0";
 canvas_confetti.style.left = "0";
-canvas_confetti.style.pointerEvents = "none"; // Allow interactions to pass through
+canvas_confetti.style.width = "100%";
+canvas_confetti.style.height = "100%";
+canvas_confetti.style.pointerEvents = "none";
+canvas_confetti.style.zIndex = "9999";
 document.body.appendChild(canvas_confetti);
 
-// Match the confetti canvas size with the main canvas
+// Match the confetti canvas size with window size
 canvas_confetti.width = window.innerWidth;
 canvas_confetti.height = window.innerHeight;
 
 let myConfetti = confetti.create(canvas_confetti, {
-  resize: true, // Dynamically resize with the window
-  useWorker: true, // Offload rendering to a worker
-  origin: {
-    x: 0.5,  // This keeps the confetti horizontally centered
-    y: 2,    // Set to 0 to start the confetti at the top of the screen
-  },
+  resize: true,
+  useWorker: true,
 });
 
-
-function textAnimation(string, x = width * 0.7, y = height) {
+function textAnimation(string, x = width * 0.5, y = height / 2) {
   this.x = x;
   this.y = y;
-  this.size = 50;
+  this.size = 10;
   this.display = function () {
     textSize(this.size);
     stroke(0);
     strokeWeight(8);
-    let colors = ['#FFFFFF', '#F9D347', '#F29F39', '#ec4940', '#CF4DEF', '#3F99F7', '#5BC339'];
+    let colors = [
+      "#FFFFFF",
+      "#F9D347",
+      "#F29F39",
+      "#ec4940",
+      "#CF4DEF",
+      "#3F99F7",
+      "#5BC339",
+    ];
     fill(colors[int(random(6))]);
     text(string, this.x, this.y);
-  }
+  };
 }
 
-function Hat(x = 0.5 * width, y = -50) {
+function Hat(x = 0.5 * width, y = -10) {
   this.location = createVector(x, y);
   this.wear = false;
   this.display = function (size, start) {
@@ -268,14 +262,14 @@ function Hat(x = 0.5 * width, y = -50) {
       }
       push();
       translate(
-        this.wear ? hatX - 100 : this.location.x - 100, // Move the hat 50 pixels to the left
+        this.wear ? hatX : this.location.x,
         this.wear ? hatY - 100 * size : this.location.y - 100 * size
-      ); scale(size);
+      );
+      scale(size);
       image(hatImg, 0, 0, 200, 200);
       pop();
     }
 
-
     // rect(this.wear?hatX:this.location.x, this.wear?hatY:this.location.y,200, 200);
-  }
+  };
 }
