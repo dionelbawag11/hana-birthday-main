@@ -200,7 +200,7 @@ function checkBite() {
   }
 
   mouseState = d > 20 ? 1 : 0;
-  let distMC = dist(mouthX, mouthY, cakeX, cakeY);
+  let distMC = dist(mouthX-300, mouthY+300, cakeX, cakeY);
   if (mouseState < preMouseState && distMC < 150) {
     bite++;
     biting = true;
