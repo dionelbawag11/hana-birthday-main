@@ -49,7 +49,7 @@ function setup() {
   x = width / 2;
   y = height / 2;
   xoff = 0.0;
-  myCanvas = createCanvas(windowWidth, windowHeight);
+  myCanvas = createCanvas(auto, auto);
   myCanvas.class("p5canvas");
   video = createCapture(VIDEO);
   video.size(width, height);
@@ -122,7 +122,7 @@ function draw() {
       });
       anime({
         targets: happyBirthdayAnima,
-        y: 0.6 * height,
+        y: 0.6 * width,
         round: 1,
         easing: "easeInOutElastic(1, .6)",
         duration: 3000,
@@ -190,7 +190,7 @@ function checkBite() {
 
   mouseState = d > 20 ? 1 : 0;
   let distMC = dist(mouthX, mouthY, cakeX, cakeY);
-  if (mouseState < preMouseState && distMC < 150) {
+  if (mouseState < preMouseState && distMC < 100) {
     bite++;
     biting = true;
   }
@@ -203,28 +203,19 @@ function playEatSoundEffect(biting = false) {
   if (biting) eatSound[bite].play();
 }
 
-// Create a confetti canvas that covers the entire screen
 let canvas_confetti = document.createElement("canvas");
 canvas_confetti.className = "confettiCanvas";
-canvas_confetti.style.position = "fixed";
-canvas_confetti.style.top = "0";
-canvas_confetti.style.left = "0";
-canvas_confetti.style.width = "100%";
-canvas_confetti.style.height = "100%";
-canvas_confetti.style.pointerEvents = "none";
-canvas_confetti.style.zIndex = "9999";
-document.body.appendChild(canvas_confetti);
-
-// Match the confetti canvas size with window size
-canvas_confetti.width = window.innerWidth;
-canvas_confetti.height = window.innerHeight;
+let dddiv = document.querySelector("div");
+dddiv.appendChild(canvas_confetti);
+canvas_confetti.height = 480;
+canvas_confetti.width = 640;
 
 let myConfetti = confetti.create(canvas_confetti, {
   resize: true,
   useWorker: true,
 });
 
-function textAnimation(string, x = width * 0.5, y = height / 2) {
+function textAnimation(string, x = width * 0.7, y = height / 2) {
   this.x = x;
   this.y = y;
   this.size = 10;
