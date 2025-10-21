@@ -57,7 +57,7 @@ function setup() {
   video = createCapture(VIDEO);
   video.size(width, height);
   hat = new Hat();
-  let string = "Happy Birthday Hana!";
+  let string = "Happy Birthday!";
   for (let i = 0; i < string.length; i++) {
     happyBirthdayAnima.push(new textAnimation(string[i], width * 0.5, height / 2));
   }
@@ -77,7 +77,7 @@ function modelReady() {
 }
 
 function draw() {
-  
+
   push();
   translate(width / 2, height / 2);
   scale(-1, 1)
